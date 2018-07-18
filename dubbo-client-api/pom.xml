@@ -5,10 +5,10 @@
         <artifactId>dubbo-parent</artifactId>
         <groupId>com.dubbo</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
   <artifactId>dubbo-client-api</artifactId>
   <name>dubbo-client-api</name>
-  <url>http://www.example.com</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
