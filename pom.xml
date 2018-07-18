@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dubbo</groupId>
-	<artifactId>dubboParent</artifactId>
+	<artifactId>dubbo-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>dubboParent</name>
+	<name>dubbo-parent</name>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
