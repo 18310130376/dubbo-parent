@@ -1,0 +1,3 @@
+com\integration\boot\config\SpringMvcConfig.class
+com\integration\boot\Application.class
+com\integration\boot\controller\UserController.class

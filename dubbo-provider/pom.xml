@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>dubbo-provider</artifactId>
+	<packaging>jar</packaging>
+	<name>dubbo-provider</name>
+	<!-- <parent> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-parent</artifactId> 
+		<version>1.2.3.RELEASE</version> <relativePath /> </parent> -->
+
+	<parent>
+		<groupId>com.dubbo</groupId>
+		<artifactId>dubbo-parent</artifactId>
+		<version>1.0.2</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.integration.boot.Application</start-class>
+		<java.version>1.7</java.version>
+		<tomcat.version>7.0.69</tomcat.version>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>com.dubbo</groupId>
+			<artifactId>dubbo-client-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+        <!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+
+		<!-- <dependency> <groupId>org.mybatis.spring.boot</groupId> <artifactId>mybatis-spring-boot-starter</artifactId> 
+			<version>1.1.1</version> </dependency> mybatis分页插件依赖 <dependency> <groupId>com.github.pagehelper</groupId> 
+			<artifactId>pagehelper</artifactId> <version>4.0.0</version> </dependency> -->
+
+		<dependency>
+			<groupId>io.dubbo.springboot</groupId>
+			<artifactId>spring-boot-starter-dubbo</artifactId>
+			<version>1.0.0</version>
+			<exclusions>
+			  <exclusion>
+            <artifactId>netty</artifactId>
+            <groupId>org.jboss.netty</groupId>
+        </exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--dubbo-springBoot依赖 -->
+		<!-- <dependency> <groupId>com.alibaba.spring.boot</groupId> <artifactId>dubbo-spring-boot-starter</artifactId> 
+			<version>2.0.1-SNAPSHOT</version> </dependency> -->
+
+		<!-- <dependency> <groupId>com.alibaba.boot</groupId> <artifactId>dubbo-spring-boot-starter</artifactId> 
+			<version>0.2.0</version> </dependency> -->
+
+
+		<!-- dubbo2springboot 桥接包 -->
+		<!-- <dependency> <groupId>com.gitee.reger</groupId> <artifactId>spring-boot-starter-dubbo</artifactId> 
+			<version>1.0.10</version> </dependency> -->
+
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.12</artifactId>
+			<version>1.1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+		<!-- es引入 -->
+		<dependency> 
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>5.6.3</version>
+			<exclusions>
+			 <exclusion>
+			 <!-- dubbo已经引入了 -->
+			   <groupId>io.netty</groupId>
+               <artifactId>netty</artifactId>
+			 </exclusion>
+			 
+			 <exclusion>
+			  <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-api</artifactId>
+			 </exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>transport</artifactId>
+			<version>5.6.3</version> 
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.netty</groupId>
+		    <artifactId>netty</artifactId>
+		    <version>3.2.1.Final</version>
+       </dependency>
+		
+		<!-- es引入 -->
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.11.0</version> 
+			<exclusions>
+			  <exclusion>
+			  <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-api</artifactId>
+			 </exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.11.0</version>
+</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<finalName>${name}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 主要是mvn spring-boot:run这些命令 <plugin> <groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-maven-plugin</artifactId> </plugin> -->
+			<!-- 打包时将依赖的本地jar copy到lib下 -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+				<version>2.7</version>$NO-MVN-MAN-VER$ <executions> <execution> <phase>package</phase> 
+				<goals> <goal>copy-dependencies</goal> </goals> </execution> </executions> 
+				<configuration> <includeScope>system</includeScope> <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory> 
+				</configuration> </plugin> -->
+		<!-- <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin> -->
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.12</version>
+				<configuration>
+					<imageName>13662241921/dubbo-provider</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<pushImage>true</pushImage>
+					<serverId>docker-hub</serverId>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
