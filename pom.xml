@@ -68,14 +68,7 @@
 					<skipTests>true</skipTests><!--默认关掉单元测试 -->
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<executable>true</executable>
-				</configuration>
-			</plugin>
+		
 		</plugins>
 	</build>
 

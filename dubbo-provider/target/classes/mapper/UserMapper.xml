@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 
+<typeAliases>
+    <typeAlias type="me.gacl.domain.User" alias="_User"/>
+</typeAliases>
+执行增加操作的SQL语句。id和parameterType  
+       分别与IUserOperation接口中的addUser方法的名字和  
+       参数类型一致。以#{name}的形式引用Student参数  
+       的name属性，MyBatis将使用反射读取Student参数  
+       的此属性。#{name}中name大小写敏感。引用其他  
+       的gender等属性与此一致。seGeneratedKeys设置  
+       为"true"表明要MyBatis获取由数据库自动生成的主  
+       键；keyProperty="id"指定把获取到的主键值注入  
+       到Student的id属性--> 
+<mapper namespace="com.integration.boot.mapper.UserMapper">
+
+     <!-- 若不需要自动返回主键，将useGeneratedKeys="true" keyProperty="id"去掉即可(当然如果不需要自动返回主键，直接用注解即可) 
+          com.integration.boot.domain.User-->
+     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" >
+        <![CDATA[
+        INSERT INTO t_user (name,age)VALUES( #{name, jdbcType=VARCHAR},#{age, jdbcType=INTEGER})
+        ]]>
+    </insert>
+    
+    <select id="selectUserById"  
+        parameterType="com.integration.boot.domain.User"  
+        resultType="com.integration.boot.domain.User">  
+        SELECT * FROM t_user  WHERE id = #{id}  
+    </select>  
+    
+    <delete id="deleteUserById" parameterType="INTEGER">
+      delete  FROM t_user  WHERE id = #{id}  
+    </delete>
+    <!-- resultType返回的是集合中的元素类型，而不是集合本身 -->
+    <select id="getUserList" resultType="com.integration.boot.domain.User">
+      SELECT * FROM t_user 
+    </select>
+    
+    <update id="updateUser" parameterType="com.integration.boot.domain.User">
+      update t_user set name=#{name},age=#{age} where id=#{id}
+    </update>
+    
+    <!--<if test="gender != null and gender.length()>0">and gender = #{gender}</if>
+     where username LIKE concat(concat('%',#{username}),'%')
+     bookName like '%#{bookName}%'  
+    -->
+    <select id="getUserByParam" parameterType="com.integration.boot.domain.User" resultType="com.integration.boot.domain.User">
+	<!--<bind name="pattern" value="'%' + name + '%'" />
+	select * from t_user
+	<where>
+		<if test="name!=null">
+			name like #{pattern}
+		</if>
+	</where>-->
+    SELECT *  FROM t_user  WHERE UPPER(name) LIKE '%' || UPPER(#{name}) || '%'
+    
+    </select>
+    
+     <insert id="addUserByMapParameter" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id" >
+        <![CDATA[
+        INSERT INTO t_user (name,age)VALUES( #{name},#{age})
+        ]]>
+    </insert>
+    
+    <!-- Mybatis查询传入一个字符串传参数，获取值固定使用_parameter!= -->
+    <select id="selectUserByLike" parameterType="String" resultType="com.integration.boot.domain.User">
+       select * from t_user where 1=1
+       <if test="_parameter!=null and _parameter!=''">
+        <bind name="pattern" value="'%' + _parameter + '%'" />
+         and name like #{pattern}
+       </if>
+       
+    
+    </select>
+    
+    
+  <!--   when元素表示当when中的条件满足的时候就输出其中的内容，跟JAVA中的switch效果差不多的是按照条件的顺序，当when中有条件满足的时候，
+             就会跳出choose，即所有的when和otherwise条件中，只有一个会输出，当所有的我很条件都不满足的时候就输出otherwise中的内容。
+             当name!=null的时候就输出and name = #{name}，不再往下判断条件，
+             当name为空且age>0的时候就输出and age = #{age}，当所有条件都不满足的时候就输出otherwise中的内容。 
+         有的when和otherwise条件中，只有一个会输出
+    -->
+     <select id="selectUseWhen" parameterType="com.integration.boot.domain.User" resultType="com.integration.boot.domain.User">
+       select * from t_user where 1=1
+       <choose>
+            <when test="name != null and name!=''">
+                and name = #{name}
+            </when>
+            <when test="age >0">
+                and age = #{age}
+            </when>
+            <otherwise>
+                and id = #{id}
+            </otherwise>
+        </choose>
+    
+    </select>
+    
+   <!--  where元素的作用是会在写入where元素的地方输出一个where，另外一个好处是你不需要考虑where元素里面的条件输出是什么样子的，
+    MyBatis会智能的帮你处理，如果所有的条件都不满足那么MyBatis就会查出所有的记录，如果输出后是and 开头的，
+    MyBatis会把第一个and忽略，当然如果是or开头的，MyBatis也会把它忽略；此外，在where元素中你不需要考虑空格的问题，
+    MyBatis会智能的帮你加上。像上述例子中，如果title=null， 而content != null，那么输出的整个语句会是select * from t_blog where content = #{content}，
+           而不是select * from t_blog where and content = #{content}，因为MyBatis会智能的把首个and 或 or 给忽略。 -->
+    <select id="selectDynamicWhere" parameterType="com.integration.boot.domain.User" resultType="com.integration.boot.domain.User">
+        select * from t_user 
+        <where>
+            <if test="name != null and name!=''">
+                name = #{name}
+            </if>
+            <if test="id != null and id>0">
+                and id = #{id}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
+    
+<!--     set元素主要是用在更新操作的时候，它的主要功能和where元素其实是差不多的，主要是在包含的语句前输出一个set，然后如果包含的语句是以逗号结束的话将会把该逗号忽略，如果set包含的内容为空的话则会出错。有了set元素我们就可以动态的更新那些修改了的字段
+ -->     <update id="updateDynamicSet" parameterType="com.integration.boot.domain.User">
+        update t_user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="age > 0">
+                age = #{age},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!-- see http://blog.csdn.net/techbirds_bao/article/details/9233599/    foreach (在实现 mybatis in 语句查询时特别有用)
+foreach的主要用在构建in条件中，它可以在SQL语句中进行迭代一个集合。foreach元素的属性主要有item，index，collection，open，separator，close。item表示集合中每一个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中，每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号作为分隔符，close表示以什么结束，在使用foreach的时候最关键的也是最容易出错的就是collection属性，该属性是必须指定的，但是在不同情况下，该属性的值是不一样的，主要有一下3种情况：
+如果传入的是单参数且参数类型是一个List的时候，collection属性值为list
+如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array
+如果传入的参数是多个的时候，我们就需要把它们封装成一个Map了，当然单参数也可以封装成map，实际上如果你在传入参数的时候，在MyBatis里面也是会把它封装成一个Map的，map的key就是参数名，所以这个时候collection属性值就是传入的List或array对象在自己封装的map里面的key -->
+    <select id="selectUseListIn" resultType="com.integration.boot.domain.User"> 
+         select * from t_user where id in
+         <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    
+    <select id="selectUseArrayIn" resultType="com.integration.boot.domain.User"> 
+         select * from t_user where id in
+         <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    
+     <select id="selectUseMapIn" resultType="com.integration.boot.domain.User"> 
+         select * from t_user where name =  #{name} and id in
+         <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    
+     <!-- 将 association  中对应的映射独立抽取出来，可以达到复用的目的。 --> 
+    <resultMap type="User" id="resultListUser">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+    </resultMap>
+    
+    
+    <!-- 将 association  中对应的映射独立抽取出来，可以达到复用的目的。 -->    
+    <resultMap id="resultUserBlogList" type="Blog">
+        <id property="id" column="bid" /><!-- 对应sql的别名 -->
+        <result property="title" column="title" />
+        <result property="content" column="content" />     
+        <result property="author" column="author" />     
+        <result property="createTime" column="createTime" />
+         <result property="isDeleted" column="isDeleted" />
+          <result property="userId" column="userId" />        
+        <association property="user" javaType="User" resultMap="resultListUser" />            
+    </resultMap>
+    
+    
+    <select id="getUserBlog" parameterType="int" resultMap="resultUserBlogList">
+       select t_user.id,t_user.name,t_user.age,t_blog.id bid,t_blog.title,t_blog.content,t_blog.isDeleted,t_blog.userId from t_user,t_blog 
+              where t_user.id=t_blog.userId and t_user.id=#{id}
+    </select>
+    
+    
+   <!--  mybatis动态sql中的trim标签的使用
+trim标记是一个格式化的标记，可以完成set或者是where标记的功能，如下代码：
+　　1、
+　　select * from user 
+　　<trim prefix="WHERE" prefixoverride="AND |OR">
+　　　　<if test="name != null and name.length()>0"> AND name=#{name}</if>
+　　　　<if test="gender != null and gender.length()>0"> AND gender=#{gender}</if>
+　　</trim>
+　　假如说name和gender的值都不为null的话打印的SQL为：select * from user where (不存在and)   name = 'xx' and gender = 'xx'
+　　在红色标记的地方是不存在第一个and的，上面两个属性的意思如下：
+　　prefix：前缀　　　　　　
+　　prefixoverride：去掉第一个and或者是or
+　　2、
+　　update user
+　　<trim prefix="set" suffixoverride="," suffix=" where id = #{id} ">
+　　　　<if test="name != null and name.length()>0"> name=#{name} , </if>
+　　　　<if test="gender != null and gender.length()>0"> gender=#{gender} ,  </if>
+　　</trim>
+　　假如说name和gender的值都不为null的话打印的SQL为：update user set name='xx' , gender='xx'  (不存在逗号)   where id='x'
+　　在红色标记的地方不存在逗号，而且自动加了一个set前缀和where后缀，上面三个属性的意义如下，其中prefix意义如上：
+　　suffixoverride：去掉最后一个逗号（也可以是其他的标记，就像是上面前缀中的and一样）
+　　suffix：后缀 
+
+  sql   ||的使用
+  org.mybatis.spring.mapper.MapperScannerConfigurer扫描mapper接口
+  @Param
+resultMap:适合使用返回值是自定义实体类的情况 
+  resultType：适合使用返回值的数据类型是非自定义的，即jdk的提供的类型 
+  
+  
+  http://www.cnblogs.com/kluan/p/5934633.html
+  http://www.cnblogs.com/zhangtan/p/5846955.html
+  http://duanhengbin.iteye.com/blog/1998017
+  
+  sql复用  http://blog.csdn.net/rongbo_j/article/details/46627793
+  
+  
+ =====================MyBatis日期用法技巧======================================
+   当你想在实体类中使用Java.util.Date类型，而且还想在数据库中保存时分秒时，你可以在xml中修改为：
+
+#{xxdate,jdbcType=TIMESTAMP}
+
+就是将#{}中的jdbcType属性设置成TIMESTAMP，这样在保存的时候就会将时分秒也包含进去。
+
+如果你xml中使用了<resultMap>，为了防止意外，最好将相应的字段也修改：
+
+<result column="XXDATE" jdbcType="TIMESTAMP" property="xxdate"/>
+
+
+
+在mybatis中，我们可以將sql语句中公共的部分提取出来，然后需要该段sql的地方通过include标签引入即可，这样可以达到sql语句复用的目的。 
+例如我们有两条相似的查询语句：
+<select id="queryUserInfoByName" parameterType="string"  resultType="user">
+        select * from User where username = #{username}
+</select>
+<select id="queryUserInfoByPhone" parameterType="string"  resultType="user">
+        select * from User where phone = #{phone}
+</select>
+我们可以通过<sql>标签，把公共的部分定义成一个块：
+<sql id="queryUserInfo">
+        select * from User where 
+</sql>
+则上面的查询语句可以改写成：
+<select id="queryUserInfoByName" parameterType="string"  resultType="user">
+        <include refid="queryUserInfo"></include> username = #{username}
+</select>
+<select id="queryUserInfoByPhone" parameterType="string"  resultType="user">
+        <include refid="queryUserInfo"></include> phone = #{phone}
+</select>
+
+
+    <typeAliases>
+        <typeAlias alias="user" type="com.mybatis.domain.User"/>
+    </typeAliases>
+    
+    扫描不同包下的实体别名
+    http://www.cnblogs.com/jeffen/p/6396319.html
+   typeAliasesPackage配置路径下的domain中可以添加@org.apache.ibatis.type.Alias(value = "user")注解；如果添加此注解，则别名使用此注解所指定的名称。如果没有配置，则默认为类名首字母小写。 
+   
+   这样做的目的主要是因为在 XML 元素中，"<" 和 "&" 是非法的。"<" 会产生错误，因为解析器会把该字符解释为新元素的开始。"&" 也会产生错误，因为解析器会把该字符解释为字符实体的开始。
+   而sql语句或者脚本语句中可能会存在 "<" 或 "&" 字符。为了避免错误，可以将sql语句定义为 CDATA。CDATA 部分中的所有内容都会被解析器忽略。
+   
+     保存或更新
+   sql返回结果
+         日志
+         
+  批量增加       
+    insert into t_train_record (add_time,emp_id,activity_id,flag)  
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.addTime},#{item.empId},#{item.activityId},#{item.flag}) 
+    </foreach> 
+    
+    
+    
+    编写mapper接口需要遵循一些开发规范，mybatis可以自动生成mapper接口实现类代理对象。 规范： 1、namespace等于mapper接口地址 2、mapper.java接口中的方法名等于mapper.xml中statement的id一致 3、mapper.java接口中的方法的输入参数类型和mapper.xml中statement的parameterType指定的类型一致 4、mapper.java接口中的方法的返回值类型和mapper.xml中statement的resultType指定的类型一致。
+作者： HansonQ 
+链接：http://www.imooc.com/article/3507
+来源：慕课网
+
+
+文档
+see http://www.kancloud.cn/digest/andyalien-mybatis/190190
+-->
+
+
+<!-- 但是如果每一个实体类都这样配置还是有点麻烦这时我们可以直接指定package的名字， mybatis会自动扫描指定包下面的javabean，
+并且默认设置一个别名，默认的名字为： javabean 的首字母小写的非限定类名来作为它的别名（其实别名是不去分大小写的）。也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(student) -->
+
+<!-- <if test="_databaseId == 'oracle'"> -->
+ <insert id="saveOrUpdateUser" parameterType="User" >
+  <selectKey keyProperty="id" resultType="int" order="BEFORE" >
+   select count(id) as id from t_user where id = #{id}
+  </selectKey>
+  <if test="id > 0">
+  update t_user set name = #{name},age = #{age} where id = #{id}
+  </if>
+  <if test="id==0">
+   insert into t_user (name,age) values (#{name},#{age})
+  </if>
+  
+ </insert>
+ 
+ </mapper>
