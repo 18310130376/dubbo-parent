@@ -1,7 +1,7 @@
 package com.integration.boot.kafka;
 
 public interface KafkaProperties {
-	//final static String zkConnect = "192.168.135.133:2181";
+	
 	final static String broker = "192.168.48.131:9092";
 	final static String groupId = "group1";
 	final static String topic = "topic";

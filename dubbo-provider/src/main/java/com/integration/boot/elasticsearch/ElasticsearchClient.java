@@ -10,8 +10,6 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 public class ElasticsearchClient {
 
-	// Settings settings = Settings.builder().put("cluster.name",
-	// "elasticsearch").build();
 	
 	private ElasticsearchClient() {
 

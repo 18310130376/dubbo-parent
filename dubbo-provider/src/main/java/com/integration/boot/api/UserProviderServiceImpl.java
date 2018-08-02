@@ -1,4 +1,4 @@
-package com.integration.boot.provider.service;
+package com.integration.boot.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.integration.boot.api.IUserProviderService;
 
 
-@SuppressWarnings("all")
 @Service
-public class UserProviderService implements IUserProviderService{
+public class UserProviderServiceImpl implements IUserProviderService{
 	
-	public List getAllUser(String username) {
+	public List<Map<String, String>> getAllUser(String username) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("name","wukang11");
-		List list = new ArrayList<>();
+		List<Map<String, String>> list = new ArrayList<>();
 		list.add(map);
 		return list;
 	}

@@ -1,4 +1,4 @@
-package com.integration.boot.controller;
+package com.integration.boot.common;
 
 import java.util.HashMap;
 import java.util.Map;

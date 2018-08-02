@@ -10,7 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-/**@ImportResource("classpath:spring-dubbo.xml")**/
 public class Application {
 
 	private static final Log logger = LogFactory.getLog(Application.class);

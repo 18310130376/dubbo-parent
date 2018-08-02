@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dubbo</groupId>
@@ -7,12 +8,12 @@
 	<version>1.0.2</version>
 	<packaging>pom</packaging>
 	<name>dubbo-parent</name>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<properties>
@@ -20,86 +21,66 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<modules>
 		<module>dubbo-provider</module>
 		<module>dubbo-consumer</module>
-        <module>dubbo-client-api</module>
-  </modules>
-  
-  <dependencies>
-     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-     </dependency>
-     
-     
-      <!--  <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-logging</artifactId>
-    </dependency> -->
-   <!--  <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>log4j-over-slf4j</artifactId>
-    </dependency> -->
-     
-      <!-- <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <optional>true</optional>
-    </dependency>
-      -->
-     
-     <dependency>
-	    <groupId>com.github.ulisesbocchio</groupId>
-	    <artifactId>jasypt-spring-boot-starter</artifactId>
-	    <version>1.5-java7</version>
-     </dependency>
-     
-<dependency> 
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-log4j</artifactId>
-    <version>1.2.8.RELEASE</version>
-</dependency>
-     
-     
-  </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-            </configuration>
-      </plugin>
+		<module>dubbo-client-api</module>
+	</modules>
 
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <skipTests>true</skipTests>    <!--默认关掉单元测试 -->
-            </configuration>
-      </plugin>
-      
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <configuration>
-                 <executable>true</executable>
-            </configuration>
-        </plugin>
-      
-    </plugins>
-  </build>
-  
-  
-  <distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>1.5-java7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+			<version>1.2.8.RELEASE</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests><!--默认关掉单元测试 -->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<distributionManagement>
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>releases</id>
@@ -110,6 +91,6 @@
 			<id>snapshots</id>
 			<url>http://192.168.48.131:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
-  </distributionManagement> 
-  
+	</distributionManagement>
+
 </project>

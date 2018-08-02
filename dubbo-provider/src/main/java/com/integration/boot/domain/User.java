@@ -2,7 +2,6 @@ package com.integration.boot.domain;
 
 import java.io.Serializable;
 
-
 /**
  * 用户信息
  * @author Administrator

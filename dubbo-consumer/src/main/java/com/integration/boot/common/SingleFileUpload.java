@@ -1,4 +1,4 @@
-package com.integration.boot.controller;
+package com.integration.boot.common;
 
 import java.io.IOException;
 import java.nio.file.Files;

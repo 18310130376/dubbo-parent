@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.integration.boot.provider.service.IUserProviderService;
+import com.integration.boot.api.IUserProviderService;
 
 @RestController
 public class UserController {
 	
-	@Reference(url="dubbo://127.0.0.1:20882/com.integration.boot.provider.service.IUserProviderService")
+	@Reference(url="dubbo://127.0.0.1:20882/com.integration.boot.api.IUserProviderService")
 	private IUserProviderService userProviderService;
 	
 	@SuppressWarnings("rawtypes")

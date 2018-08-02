@@ -110,18 +110,16 @@ public class ElasticsearchOperation {
 		}
 	}
 	
-	
 	/**
-	 * 对条件查询
-	 * **/
+	 *对条件查询
+	 ***/
 	public static void getData4() {
 
 		SearchRequestBuilder responsebuilder = ElasticsearchClient
 				.getTransportClient().prepareSearch("account")
 				.setTypes("person");
-
 		
-		 //responsebuilder.setQuery(QueryBuilders.commonTermsQuery("name", "lishici"))  
+		//responsebuilder.setQuery(QueryBuilders.commonTermsQuery("name", "lishici"))  
 		SearchResponse myresponse = responsebuilder
 				//对于三个词wukang，wu，kang在userName字段进行查询，如果有三者中的任意一个即算匹配
 				.setQuery(QueryBuilders.matchAllQuery())

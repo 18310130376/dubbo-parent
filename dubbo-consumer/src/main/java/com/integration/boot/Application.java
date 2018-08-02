@@ -7,19 +7,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.integration.boot.config.ConfigBean;
-
 @SpringBootApplication
-@EnableAsync
-@EnableScheduling
-@EnableConfigurationProperties({ConfigBean.class})
 public class Application{
 
     private static final Log logger = LogFactory.getLog(Application.class);

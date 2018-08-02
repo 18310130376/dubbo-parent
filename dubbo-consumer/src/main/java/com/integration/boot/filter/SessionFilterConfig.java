@@ -1,4 +1,4 @@
-package com.integration.boot.config;
+package com.integration.boot.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

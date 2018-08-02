@@ -2,7 +2,6 @@ package com.integration.boot.zookeeper;
 
 import java.io.IOException;
 import java.util.List;
-
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -12,7 +11,6 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.ZKPaths;
 import org.apache.zookeeper.data.Stat;
-
 
 public class ZookeeperClient {
 	private static final String PATH = "/data";
