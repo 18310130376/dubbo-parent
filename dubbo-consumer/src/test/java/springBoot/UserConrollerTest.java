@@ -51,11 +51,11 @@ public class UserConrollerTest {
     @Test  
     public void getUserByIdTest() throws Exception {  
     	  String uri = "/getUserById";
-          MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(uri).param("username", "123").content("").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+          MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(uri).param("username", "123").content("").contentType(MediaType.APPLICATION_JSON)
         		  .accept(MediaType.APPLICATION_JSON))
                   .andReturn();
           String content = mvcResult.getResponse().getContentAsString();
-          logger.info(content);
+          logger.debug(content);
     }  
  
 }

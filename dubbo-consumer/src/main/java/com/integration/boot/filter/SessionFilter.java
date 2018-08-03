@@ -30,7 +30,7 @@ public class SessionFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
-		System.out.println("requestUtl:" + request.getRequestURI());
+		//System.out.println("requestUtl:" + request.getRequestURI());
 		String uri = request.getServletPath();
 		if (isExcludedUri(uri)) {
 			filterChain.doFilter(request, response);
