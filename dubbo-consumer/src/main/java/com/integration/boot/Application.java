@@ -1,13 +1,14 @@
 package com.integration.boot;
 
+import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -22,12 +23,30 @@ public class Application{
     }
     
     public static void main(String[] args) throws InterruptedException {
-
-    	  ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+    	  
+    	  loadLogConfig();
+    	  SpringApplication.run(Application.class, args);
           logger.info("======dubbo-consumer started successfull ======");
-          CountDownLatch closeLatch = context.getBean(CountDownLatch.class);
-          closeLatch.await();
     }
+    
+    public static void loadLogConfig(){
+    	
+		try {
+			PropertyConfigurator.configure(Application.class.getClassLoader().getResource("").getPath() + File.separator+"config"+File.separator+"log4j.properties");
+		} catch (Exception e) {
+			PropertyConfigurator.configure(System.getProperty("user.dir") + File.separator+"config"+ File.separator+"log4j.properties");
+			logger.error("=========config not found=======");
+		}
+    }
+    
+    /**
+     *判断是否是linux系统
+     * */
+    public static boolean isLinux() { 
+    	System.out.println(System.getProperty("os.name"));
+    	return System.getProperty("os.name").toLowerCase().indexOf("linux") >= 0; 
+    }
+    
     
     @Bean
     public Executor getAsyncExecutor() {
