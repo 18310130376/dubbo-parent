@@ -16,7 +16,7 @@ public class Application {
 
 	@Bean
 	public CountDownLatch closeLatch() {
-		return new CountDownLatch(1);
+		return new CountDownLatch(1); 
 	}
 
 	public static void main(String[] args) throws InterruptedException {
