@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -58,4 +59,15 @@ public class UserConrollerTest {
           logger.debug(content);
     }  
  
+    
+    
+    @Autowired
+    private Environment environment;
+    
+    @Test
+    public void loadProperties() {
+    	String property = environment.getProperty("spring.dubbo.application.name");
+    	System.out.println(property);
+    }
+    
 }

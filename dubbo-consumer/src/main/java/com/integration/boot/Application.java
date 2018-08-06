@@ -25,7 +25,7 @@ public class Application{
     public static void main(String[] args) throws InterruptedException {
     	  
     	  loadLogConfig();
-    	  SpringApplication.run(Application.class, args);
+    	   SpringApplication.run(Application.class, args);
           logger.info("======dubbo-consumer started successfull ======");
     }
     
