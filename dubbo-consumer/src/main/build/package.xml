@@ -13,7 +13,7 @@
     <dependencySets>  
         <dependencySet>  
          <!--useProjectArtifact为true，则会把打的jar包放在zip对应的依赖包目录下，否则不会放进去-->
-            <useProjectArtifact>true</useProjectArtifact>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${file.separator}lib</outputDirectory> 
             <unpack>false</unpack>
            <!--  <scope>runtime</scope> -->

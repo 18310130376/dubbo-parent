@@ -292,14 +292,11 @@
 		</resources>
 		<plugins>
 
-
             <!-- 打包插件  用maven-jar-plugin时spring-boot-maven-plugin需要去除，不然把的包执行不了-->
-
         	<!-- <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin> -->
-			
 			
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -318,6 +315,9 @@
 							 <!--jar包不包含唯一版本标识-->
                             <useUniqueVersions>false</useUniqueVersions>
 						</manifest>
+					 <manifestEntries>  
+                         <Class-Path>./config/ ./config02/</Class-Path>
+                     </manifestEntries> 
 					</archive>
 					  <!--过滤掉不希望包含在jar中的文件-->
 					 <excludes>
@@ -325,9 +325,6 @@
 						<exclude>static/**</exclude>
 						<exclude>/**/log4j.properties</exclude>
 					</excludes> 
-					  <manifestEntries>  
-                         <Class-Path>./</Class-Path>
-                     </manifestEntries> 
 				</configuration>
 			</plugin>
 			
@@ -351,7 +348,6 @@
 				</executions>
 			</plugin> 
 			<!-- 打包插件 -->
-			
 		</plugins>
 	</build>
 </project>

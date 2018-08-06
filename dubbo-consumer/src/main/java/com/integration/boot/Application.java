@@ -34,8 +34,8 @@ public class Application{
 		try {
 			PropertyConfigurator.configure(Application.class.getClassLoader().getResource("").getPath() + File.separator+"config"+File.separator+"log4j.properties");
 		} catch (Exception e) {
+			logger.error("=========config not found，try to load from user.dir =======");
 			PropertyConfigurator.configure(System.getProperty("user.dir") + File.separator+"config"+ File.separator+"log4j.properties");
-			logger.error("=========config not found=======");
 		}
     }
     
