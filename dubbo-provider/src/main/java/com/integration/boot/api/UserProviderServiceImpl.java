@@ -19,4 +19,15 @@ public class UserProviderServiceImpl implements IUserProviderService{
 		list.add(map);
 		return list;
 	}
+
+	@Override
+	public List<Map<String, String>> getAllUser(String username, String password) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name","wukang12");
+		map.put("password",password);
+		List<Map<String, String>> list = new ArrayList<>();
+		list.add(map);
+		return list;
+	}
 }

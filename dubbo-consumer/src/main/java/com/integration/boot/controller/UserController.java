@@ -21,7 +21,7 @@ public class UserController {
 	
 	private static Logger logger=Logger.getLogger(UserController.class);
 	
-	@Reference(url="dubbo://127.0.0.1:20882/com.integration.boot.api.IUserProviderService")
+	@Reference
 	private IUserProviderService userProviderService;
 	
 	@SuppressWarnings("rawtypes")
@@ -30,7 +30,7 @@ public class UserController {
 	public List getUserInfo(HttpServletRequest request){
 		String username = request.getParameter("username");
 		logger.debug("==================");
-		return userProviderService.getAllUser(username);
+		return userProviderService.getAllUser(username,null);
 	}
 	
 	
