@@ -21,6 +21,11 @@ public class KafkaDataConsumer implements Runnable  {
 
 	public KafkaDataConsumer(String topic,String groupId,String threadName) {
 		consumer = new KafkaConsumer<String, String>(createConsumerConfig(groupId));
+		
+//		TopicPartition partition0 = new TopicPartition("topicName", 0);
+//		consumer.assign(Arrays.asList(partition0));
+//		// consumer.seek(partition0, 220);
+//		consumer.seekToEnd(Arrays.asList(partition0));
 		consumer.subscribe(Arrays.asList(topic),new ConsumerRebalanceListener() {
 			
 			@Override
@@ -64,7 +69,7 @@ public class KafkaDataConsumer implements Runnable  {
 	public void run() {
 		while (true) {
 			try {
-				ConsumerRecords<String, String> records = consumer.poll(2000);
+				ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);
 				System.out.println("threadName"+threadName);
 				/**
 				for (ConsumerRecord<String, String> recode : records) {
