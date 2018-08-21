@@ -11,7 +11,6 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-
 public class KafkaDataProducer extends Thread {
 
 	private final KafkaProducer<String, String> producer;
@@ -55,8 +54,10 @@ public class KafkaDataProducer extends Thread {
 	@Override
 	public void run() {
 		int messageNo = 1;
-		while (true) {
-			final String messageStr = new String(""+messageNo);
+		ProducreData producreData = null;
+		while (true && messageNo<=100) {
+			producreData = new ProducreData("name", messageNo);
+			final String messageStr = producreData.toString();
 			try {
 				//默认情况下，Kafka根据传递消息的key来进行分区的分配，即hash(key) % numPartitions，如下图所示
 				//new ProducerRecord<>(messageStr, partition, key, value)

@@ -1,14 +1,15 @@
 package com.integration.boot.kafka;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class KafkaProducerDemo {
 
-	 public static void main(String[] args) throws IOException
-	    {
-	        KafkaDataProducer producerThread = new KafkaDataProducer(KafkaProperties.topic+"01");
-	        producerThread.start();
-	        producerThread = new KafkaDataProducer(KafkaProperties.topic+"02");
-	        producerThread.start();
-	    }
+	public static void main(String[] args) throws IOException {
+
+		ExecutorService executorService = Executors.newFixedThreadPool(20);
+		KafkaDataProducer producerThread = new KafkaDataProducer(KafkaProperties.topic + "01");
+		executorService.submit(producerThread);
+	}
 }
