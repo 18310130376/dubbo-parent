@@ -30,4 +30,9 @@ public class UserProviderServiceImpl implements IUserProviderService{
 		list.add(map);
 		return list;
 	}
+
+	@Override
+	public Map<String, String> getData(Map<String, String> map, String password) {
+		return map;
+	}
 }

@@ -8,6 +8,7 @@ public class StaticProperties {
 
 	public static String SPRING_APPLICATION_NAME;
 	
+	@SuppressWarnings("static-access")
 	@Value("${spring.dubbo.application.name}")
 	private void setApplicationName(String applicationName){
 		this.SPRING_APPLICATION_NAME = applicationName;
