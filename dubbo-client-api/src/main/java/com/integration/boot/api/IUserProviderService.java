@@ -9,4 +9,6 @@ public interface IUserProviderService {
 	
 	
 	public List<Map<String, String>> getAllUser(String username,String password);
+	
+	public Map<String, String> getData(Map<String,String> map,String password);
 }
